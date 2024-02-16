@@ -1,0 +1,234 @@
+@import "../../node_modules/normalize.css/normalize.css";
+
+// Colors
+$main-text: #2A3B53;
+$secondary-text: #8B96AC;
+$border: #5B6C8C;
+$error: #BA5B5B;
+$blue: #5879EF;
+
+@font-face {
+  font-family: 'Proxima Nova Regular';
+  src: url('../fonts/ProximaNova-Regular.eot');
+  src: url('../fonts/ProximaNova-Regular.eot?#iefix') format('embedded-opentype'),
+  url('../fonts/ProximaNova-Regular.woff') format('woff'),
+  url('../fonts/ProximaNova-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+// .form__container
+.form__container {
+  max-width: 1010px;
+  padding: 80px clamp(0.938rem, -1.29rem + 8.39vw, 5rem) 80px;
+  // .title
+  .title {
+    margin: 0 0 4px 0;
+    color: $secondary-text;
+    font-family: Overpass, sans-serif;
+    font-size: clamp(3.5rem, 2.129rem + 5.16vw, 6rem);
+    font-weight: 700;
+    line-height: 1.1;
+
+    span {
+      color: $main-text;
+    }
+  }
+
+  // .description
+  .description {
+    margin: 0;
+    color: $secondary-text;
+    font-family: Hind, sans-serif;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 1;
+  }
+
+  // .form
+  .form {
+    padding-top: 50px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 560px;
+
+    input {
+      box-sizing: border-box;
+      padding: 7px 20px;
+      border: none;
+      border-bottom: 1px solid $border;
+      color: $main-text;
+      font-family: Hind, sans-serif;
+      font-size: 24px;
+      font-weight: 400;
+      line-height: 1.5;
+      letter-spacing: 0.96px;
+      width: 100%;
+      transition: border-bottom-color .2s;
+
+      &::placeholder {
+        color: $secondary-text;
+        font-family: Hind, sans-serif;
+        font-size: 24px;
+        line-height: 1.5;
+        letter-spacing: 0.96px;
+      }
+
+      &:focus-visible {
+        outline: none;
+        border-bottom-color: $main-text;
+      }
+
+      &[type=checkbox] {
+        padding: 0;
+        width: 15px;
+        height: 15px;
+        background-color: white;
+        border-radius: 50%;
+        vertical-align: middle;
+        border: 1px solid $main-text;
+        appearance: none;
+        -webkit-appearance: none;
+        outline: none;
+        cursor: pointer;
+        transition: all .2s;
+
+        &:focus {
+          border-width: 2px;
+        }
+
+        &:checked {
+          background-color: $main-text;
+        }
+      }
+
+      &[type=submit] {
+        cursor: pointer;
+        color: $main-text;
+        font-family: Overpass, sans-serif;
+        font-size: 28px;
+        font-weight: 600;
+        line-height: 1.5;
+        letter-spacing: unset;
+        border-bottom: 2px solid $blue;
+        width: auto;
+        padding: 9px;
+        background: unset;
+        transition: all .2s;
+
+        @media (any-hover: hover) {
+          &:hover {
+            color: $blue;
+            border-bottom-color: $main-text;
+          }
+        }
+
+        &:hover,
+        &:active,
+        &:focus {
+          color: $blue;
+          border-bottom-color: $main-text;
+        }
+      }
+    }
+
+    // .form__bottom-wrapper
+    &__bottom-wrapper {
+      margin-top: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 40px;
+    }
+
+    // .form__privacy-policy-wrapper
+    &__privacy-policy-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+
+      label {
+        color: $secondary-text;
+        font-family: Hind, sans-serif;
+        font-size: 18px;
+        font-weight: 300;
+        line-height: 1.5;
+        letter-spacing: 0.72px;
+        cursor: pointer;
+
+        a {
+          color: $border;
+          text-decoration-line: underline;
+          transition: color .2s;
+
+          &:hover {
+            color: $main-text;
+          }
+        }
+      }
+    }
+
+    .city {
+      width: 100%;
+    }
+  }
+}
+
+// Select2
+.select2 {
+  .select2-selection {
+    border: none;
+    border-bottom: 1px solid $border;
+    border-radius: unset;
+    padding: 7px 20px;
+    height: auto;
+    transition: border-bottom-color .2s;
+
+    &:focus {
+      border-bottom-color: $main-text;
+      outline: none;
+    }
+
+    .select2-selection__arrow {
+      height: 100%;
+      width: auto;
+      right: 36px;
+
+      b {
+        background-image: url(../img/arrow-down.svg);
+        border: none !important;
+        height: 16px;
+        width: 16px;
+        margin: unset;
+        top: 50%;
+        transform: translateY(-50%);
+        transition: transform .2s;
+      }
+    }
+
+    .select2-selection__rendered {
+      padding: 0;
+      color: $secondary-text;
+      font-family: Hind, sans-serif;
+      font-size: 24px;
+      font-weight: 400;
+      line-height: 1.5;
+      letter-spacing: 0.96px;
+    }
+  }
+
+  &.select2-container--open {
+    .select2-selection {
+      border-bottom-color: $main-text;
+    }
+
+    .select2-selection__arrow {
+      b {
+        transform: translateY(-50%) rotate(-180deg);
+      }
+    }
+  }
+}
+
