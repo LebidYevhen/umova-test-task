@@ -1,12 +1,57 @@
 'use strict';
 
-$(document).ready(function() {
+$(document).ready(function () {
     $('.city').select2({
         dropdownPosition: 'below'
     });
+
+    $('input[name=phone]').inputmask({"mask": "999-999-9999"});
+
+    $('#form').submit(function (e) {
+        e.preventDefault();
+
+        const formData = $(this).serialize();
+
+        const form = $('.form');
+
+        $.ajax({
+            type: 'POST',
+            url: 'submit.php',
+            data: formData,
+            dataType: 'json',
+            beforeSend: function () {
+                form.css({'opacity': 0.5});
+            },
+            success: function (response) {
+                $('.error-field').remove();
+                $('.success').remove();
+                if (response.errors !== null && response.errors !== undefined && response.errors !== false) {
+                    renderErrors(response.errors);
+                } else {
+                    form[0].reset();
+                    const errorField = $('<span>');
+                    errorField.text('Form submitted').addClass(`success`);
+                    form.prepend(errorField);
+                }
+                form.css({'opacity': 1});
+            }
+        });
+    });
+
+    function renderErrors(errors) {
+        $.each(errors, function (key, value) {
+            const errorField = $('<span>');
+            errorField.text(value).addClass(`error-field ${key}`);
+            if (key === 'privacyPolicy') {
+                $('.form__privacy-policy-wrapper').after(errorField);
+            } else {
+                $(`label[for=${key}]`).append(errorField);
+            }
+        })
+    }
 });
 
-(function($) {
+(function ($) {
 
     var Defaults = $.fn.select2.amd.require('select2/defaults');
 
@@ -18,7 +63,7 @@ $(document).ready(function() {
 
     var _positionDropdown = AttachBody.prototype._positionDropdown;
 
-    AttachBody.prototype._positionDropdown = function() {
+    AttachBody.prototype._positionDropdown = function () {
 
         var $window = $(window);
 

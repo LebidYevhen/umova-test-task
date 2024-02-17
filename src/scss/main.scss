@@ -133,21 +133,35 @@ $blue: #5879EF;
       }
     }
 
+    .error-field {
+      display: block;
+      margin-top: 6px;
+      color: $error;
+      font-family: "Proxima Nova", sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    .success {
+      color: $blue;
+      font-family: Hind, sans-serif;
+      font-size: 24px;
+      line-height: 1.5;
+      letter-spacing: 0.96px;
+    }
+
     // .form__bottom-wrapper
     &__bottom-wrapper {
       margin-top: 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 40px;
     }
 
     // .form__privacy-policy-wrapper
     &__privacy-policy-wrapper {
       display: flex;
       align-items: center;
-      gap: 15px;
+      gap: 40px;
+      flex-wrap: wrap;
+      justify-content: space-between;
 
       label {
         color: $secondary-text;
@@ -157,6 +171,9 @@ $blue: #5879EF;
         line-height: 1.5;
         letter-spacing: 0.72px;
         cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 15px;
 
         a {
           color: $border;
