@@ -142,12 +142,17 @@ $blue: #5879EF;
       line-height: 1.6;
     }
 
-    .success {
+    .success,
+    .error {
       color: $blue;
       font-family: Hind, sans-serif;
       font-size: 24px;
       line-height: 1.5;
       letter-spacing: 0.96px;
+    }
+
+    .error {
+      color: $error;
     }
 
     // .form__bottom-wrapper

@@ -1,3 +1,4 @@
 .ddev/
 .idea/
 node_modules/
+/vendor/

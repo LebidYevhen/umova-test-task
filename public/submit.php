@@ -2,17 +2,28 @@
 
 declare(strict_types=1);
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require '../vendor/autoload.php';
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+  $_POST['privacyPolicy'] = $_POST['privacyPolicy'] ?? '';
   formAction($_POST);
 } else {
-  echo "Invalid request";
+  echo 'Invalid request';
 }
 
 function formAction(array $formData)
 {
-  $formData['privacyPolicy'] = $formData['privacyPolicy'] ?? '';
+  $validate = validate($formData);
+  if ($validate === true) {
+    sendEmail($formData);
+  } else {
+    echo json_encode(['errors' => validate($formData)]);
+  }
 
-  echo json_encode(['errors' => validate($formData)]);
+  die();
 }
 
 function sanitizeInput(mixed $input)
@@ -28,8 +39,9 @@ function validate($formData)
 
   foreach ($formData as $name => $value) {
     $value = sanitizeInput($value);
-    if (validateField($name, $value)) {
-      $errors[$name] = validateField($name, $value);
+    $validateField = validateField($name, $value);
+    if ($validateField !== true) {
+      $errors[$name] = $validateField;
     }
   }
 
@@ -37,7 +49,7 @@ function validate($formData)
     return $errors;
   }
 
-  return false;
+  return true;
 }
 
 function validateField($name, $value)
@@ -62,5 +74,62 @@ function validateField($name, $value)
     return "Phone is invalid";
   }
 
-  return false;
+  return true;
+}
+
+function sendEmail(array $formData)
+{
+  $mail = new PHPMailer(true);
+  $response = array(
+    'success' => false,
+    'message' => ''
+  );
+
+  try {
+    $config = include '../config.php';
+
+    $mail->isSMTP();
+    $mail->Host = $config['smtp']['host'];
+    $mail->SMTPAuth = true;
+    $mail->Username = $config['smtp']['username'];
+    $mail->Password = $config['smtp']['password'];
+    $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+    $mail->Port = $config['smtp']['port'];
+
+    // Form data
+    $websiteUrl = sprintf(
+      " %s://%s",
+      isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ? 'https' : 'http',
+      $_SERVER['SERVER_NAME']
+    );
+    $name = $formData['name'];
+    $email = $formData['email'];
+    $phone = $formData['phone'];
+    $password = $formData['password'];
+    $city = $formData['city'];
+
+    $mail->setFrom('example@email.com', 'Connect With Us');
+    $mail->addAddress($email, $name);
+    $mail->addReplyTo('info@example.com', 'Information');
+
+    $mail->isHTML(true);
+    $mail->Subject = 'Submitting a form on the site ' . $websiteUrl;
+    $mail->Body = "
+      <p><b>Submitted form data</b></p>
+      <p>Name: $name</p>
+      <p>Email: $email</p>
+      <p>Phone: $phone</p>
+      <p>Password: $password</p>
+      <p>City: $city</p>
+    ";
+    $mail->AltBody = "Submitted form data: Name: $name, Email: $email, Phone: $phone, Password: $password, City: $city";
+
+    $mail->send();
+    $response['success'] = true;
+    $response['message'] = 'Message has been sent';
+  } catch (Exception $e) {
+    $response['message'] = "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+  }
+
+  echo json_encode($response);
 }

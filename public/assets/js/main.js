@@ -20,21 +20,27 @@ $(document).ready(function () {
             data: formData,
             dataType: 'json',
             beforeSend: function () {
-                form.css({'opacity': 0.5});
+                form.css({'opacity': 0.5, 'pointer-events': 'none'});
             },
             success: function (response) {
                 $('.error-field').remove();
                 $('.success').remove();
-                if (response.errors !== null && response.errors !== undefined && response.errors !== false) {
+                if (response.errors !== null && response.errors !== undefined) {
                     renderErrors(response.errors);
-                } else {
+                }
+                if (response.success === true) {
                     form[0].reset();
+                    const successField = $('<span>');
+                    successField.text(response.message).addClass(`success`);
+                    form.prepend(successField);
+                }
+                if (response.success === false) {
                     const errorField = $('<span>');
-                    errorField.text('Form submitted').addClass(`success`);
+                    errorField.text(response.message).addClass(`error`);
                     form.prepend(errorField);
                 }
-                form.css({'opacity': 1});
-            }
+                form.css({'opacity': 1, 'pointer-events': ''});
+            },
         });
     });
 
