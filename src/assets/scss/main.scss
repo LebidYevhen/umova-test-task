@@ -1,4 +1,4 @@
-@import "../../node_modules/normalize.css/normalize.css";
+@import "../../../node_modules/normalize.css/normalize.css";
 
 // Colors
 $main-text: #2A3B53;
@@ -163,13 +163,17 @@ $blue: #5879EF;
           pointer-events: auto;
         }
       }
+
+      input {
+        padding-right: 60px;
+      }
     }
 
     .error-field {
       display: block;
       margin-top: 6px;
       color: $error;
-      font-family: "Proxima Nova", sans-serif;
+      font-family: 'Proxima Nova Regular', sans-serif;
       font-size: 16px;
       line-height: 1.6;
     }
