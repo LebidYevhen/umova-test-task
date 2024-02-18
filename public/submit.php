@@ -18,8 +18,7 @@ function formAction(array $formData)
 {
   $validate = validate($formData);
   if ($validate === true) {
-    echo json_encode('Success');
-//    sendEmail($formData);
+    sendEmail($formData);
   } else {
     echo json_encode(['errors' => validate($formData)]);
   }

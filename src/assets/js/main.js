@@ -2,8 +2,53 @@
 
 $(document).ready(function () {
     $('.city').select2({
-        dropdownPosition: 'below'
+        dropdownPosition: 'below',
+        ajax: {
+            method: 'GET',
+            url: 'https://api.api-ninjas.com/v1/city',
+            headers: {'X-Api-Key': 'R1qk0hJJJa8LFVYxEwZ91A==6FPuV55T6aV62ibf'},
+            contentType: 'application/json',
+            data: function (params) {
+                const query = {
+                    country: 'US',
+                    limit: 30,
+                    name: params.term
+                }
+
+                return query;
+            },
+            processResults: function (data) {
+                const select2Data = $.map(data, function (obj, index) {
+                    obj.id = obj.name;
+
+                    return obj;
+                });
+
+                console.log(select2Data)
+
+                return {
+                    results: select2Data,
+                };
+            },
+            cache: true,
+        },
+        placeholder: 'Choose your city *',
+        minimumInputLength: 2,
+        templateResult: formatCity,
+        templateSelection: formatCitySelection
     });
+
+    function formatCity(result) {
+        if (result.loading) {
+            return result.text;
+        }
+
+        return result.name;
+    }
+
+    function formatCitySelection(result) {
+        return result.name || result.text;
+    }
 
     $('input[name=phone]').inputmask({"mask": "999-999-9999"});
 

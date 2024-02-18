@@ -55,7 +55,7 @@ $blue: #5879EF;
 
     input {
       box-sizing: border-box;
-      padding: 7px 20px;
+      padding: 12px 20px;
       border: none;
       border-bottom: 1px solid $border;
       color: $main-text;
@@ -135,6 +135,7 @@ $blue: #5879EF;
 
     .password {
       position: relative;
+
       &-show,
       &-hide {
         position: absolute;
@@ -145,17 +146,21 @@ $blue: #5879EF;
         fill: $secondary-text;
         pointer-events: none;
       }
+
       &-hide {
         display: none;
       }
+
       &.visible {
         .password-show {
           display: none;
         }
+
         .password-hide {
           display: block;
         }
       }
+
       &.not-empty {
         .password-hide,
         .password-show {
@@ -240,7 +245,7 @@ $blue: #5879EF;
     border: none;
     border-bottom: 1px solid $border;
     border-radius: unset;
-    padding: 7px 20px;
+    padding: 12px 20px;
     height: auto;
     transition: border-bottom-color .2s;
 
@@ -274,6 +279,10 @@ $blue: #5879EF;
       font-weight: 400;
       line-height: 1.5;
       letter-spacing: 0.96px;
+
+      .select2-selection__placeholder {
+        color: $secondary-text;
+      }
     }
   }
 
@@ -285,6 +294,70 @@ $blue: #5879EF;
     .select2-selection__arrow {
       b {
         transform: translateY(-50%) rotate(-180deg);
+      }
+    }
+  }
+}
+
+.select2-container {
+  .select2-dropdown {
+    padding: 12px 20px;
+    border: 1px solid $border;
+
+    .select2-search--dropdown {
+      padding: 0;
+
+      .select2-search__field {
+        border: none;
+        border-bottom: 1px solid $secondary-text;
+        padding: 0 0 12px 0;
+        color: $main-text;
+        font-family: Hind, sans-serif;
+        font-size: 24px;
+        font-weight: 400;
+        line-height: 1.5;
+        letter-spacing: 0.96px;
+        transition: border-bottom-color .2s;
+
+        &:focus-visible {
+          outline: none;
+          border-color: $main-text;
+        }
+      }
+    }
+
+    .select2-results__options {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      padding-top: 12px;
+
+      .select2-results__option {
+        padding: 0;
+        color: $secondary-text;
+        font-family: Hind, sans-serif;
+        font-size: 24px;
+        font-weight: 400;
+        line-height: 1;
+        transition: color .2s;
+
+        &.select2-results__option--selectable {
+          &.select2-results__option--selected {
+            background: unset;
+            color: $blue;
+          }
+          &.select2-results__option--highlighted {
+            background: unset;
+            color: $main-text;
+            &.select2-results__option--selected {
+              color: $blue;
+            }
+          }
+        }
+
+        &.select2-results__message {
+          font-size: 16px;
+        }
       }
     }
   }

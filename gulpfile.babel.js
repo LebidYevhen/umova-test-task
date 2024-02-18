@@ -109,5 +109,5 @@ export const watch = () => {
 exports.styles = styles;
 exports.scripts = scripts;
 exports.cleanDist = cleanDist;
-exports.build = gulp.series(cleanDist, gulp.parallel(fonts, images, styles, scripts));
 exports.watch = watch;
+exports.build = gulp.series(cleanDist, gulp.parallel(fonts, images, styles, scripts));

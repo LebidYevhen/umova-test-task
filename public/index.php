@@ -60,10 +60,6 @@
     </label>
     <label for="city">
       <select name="city" id="city" class="city" required>
-        <option value="">Choose your city *</option>
-        <option value="New Jersey">New Jersey 1</option>
-        <option value="New Jersey">New Jersey 2</option>
-        <option value="New Jersey">New Jersey 3</option>
       </select>
     </label>
     <div class="form__bottom-wrapper">
