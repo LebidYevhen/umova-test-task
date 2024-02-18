@@ -1,6 +1,0 @@
-RewriteEngine On
-RewriteCond %{HTTP_HOST} ^umova-test-task.ddev.site$ [NC,OR]
-RewriteCond %{HTTP_HOST} ^www.umova-test-task.ddev.site$
-# Remove "public" from the URL
-RewriteCond %{REQUEST_URI} !public/
-RewriteRule (.*) /public/$1 [L]
