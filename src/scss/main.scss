@@ -133,6 +133,38 @@ $blue: #5879EF;
       }
     }
 
+    .password {
+      position: relative;
+      &-show,
+      &-hide {
+        position: absolute;
+        right: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+        cursor: pointer;
+        fill: $secondary-text;
+        pointer-events: none;
+      }
+      &-hide {
+        display: none;
+      }
+      &.visible {
+        .password-show {
+          display: none;
+        }
+        .password-hide {
+          display: block;
+        }
+      }
+      &.not-empty {
+        .password-hide,
+        .password-show {
+          fill: $main-text;
+          pointer-events: auto;
+        }
+      }
+    }
+
     .error-field {
       display: block;
       margin-top: 6px;

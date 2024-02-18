@@ -55,6 +55,27 @@ $(document).ready(function () {
             }
         })
     }
+
+    const passwordInput = $('input[type=password]');
+    passwordInput.on('change', function () {
+        if ($(this).val()) {
+            $(this).parent().addClass('not-empty');
+        } else {
+            $(this).parent().removeClass('not-empty');
+        }
+    })
+
+    const showPassword = $('.password-show');
+    showPassword.on('click', function () {
+        const input = $(this).parent().addClass('visible').find('input[type=password]');
+        input.attr('type', 'text');
+    })
+
+    const hidePassword = $('.password-hide');
+    hidePassword.on('click', function () {
+        const input = $(this).parent().removeClass('visible').find('input[type=text]');
+        input.attr('type', 'password');
+    })
 });
 
 (function ($) {
